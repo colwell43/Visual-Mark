@@ -540,6 +540,15 @@ mark.hl[data-c="blue"] { background: var(--hl-blue); }
 }
 .guide-mobile .hl-tools { margin: 14px 0 4px; padding-top: 10px; border-top: 1px solid var(--line); }
 .guide-mobile .hl-tools h3 { font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; margin: 0 0 6px; color: var(--muted); }
+/* ---------- study links (below Highlights) ---------- */
+.study-links { margin: 22px 0 0; }
+.study-links ul { list-style: none; margin: 0; padding: 0; }
+.study-links li { margin: 0 0 8px; }
+.study-links a { display: block; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; text-decoration: none; color: var(--teal); font-weight: 600; line-height: 1.3; }
+.study-links a:hover, .study-links a:focus-visible { border-color: var(--teal); background: var(--teal-soft); }
+.study-links small { display: block; margin-top: 2px; font-weight: 400; font-size: 0.78rem; color: var(--muted); }
+.guide-mobile .study-links { margin: 14px 0 4px; padding-top: 10px; border-top: 1px solid var(--line); }
+.guide-mobile .study-links h3 { font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; margin: 0 0 6px; color: var(--muted); }
 .hl-review { margin: 40px 0 0; padding-top: 8px; border-top: 1px solid var(--line); }
 .hl-review .toolbar { margin-bottom: 18px; }
 .hl-list { list-style: none; padding: 0; margin: 0 0 8px; }
@@ -579,7 +588,7 @@ mark.hl[data-c="blue"] { background: var(--hl-blue); }
   <div class="searchbar" id="searchbar" hidden>
     <div class="searchbar-inner">
       <label class="sr-only" for="search-input">Search Mark and the reflection questions</label>
-      <input id="search-input" type="search" placeholder="Search the text and questions, e.g. “suffering”, “wisdom”, “Redeemer”" autocomplete="off">
+      <input id="search-input" type="search" placeholder="Search the text and questions, e.g. “faith”, “kingdom”, “immediately”" autocomplete="off">
       <ul class="results" id="results"></ul>
       <p class="results-note" id="results-note"></p>
     </div>
@@ -767,7 +776,7 @@ mark.hl[data-c="blue"] { background: var(--hl-blue); }
     else if (h === "install") { renderInstall(); setNav("install"); renderChapGrid(0); document.title = "Install · Visual Mark"; }
     else if (h === "responses") { renderResponses(); setNav("responses"); renderChapGrid(0); document.title = "My responses · Visual Mark"; }
     else if (h === "summary") { renderSummary(); setNav("summary"); renderChapGrid(0); document.title = "Summary · Visual Mark"; }
-    else if (h === "deeper") { renderDeeper(); setNav("deeper"); renderChapGrid(0); document.title = "Going Deeper · Visual Mark"; }
+    else if (h === "deeper" || h === "deeper-resources") { if (h === "deeper-resources") pendingTarget = "dg-resources"; renderDeeper(); setNav("deeper"); renderChapGrid(0); document.title = "Going Deeper · Visual Mark"; }
     else if (h === "discussion") { renderDiscussion(); setNav("discussion"); renderChapGrid(0); document.title = "Group discussion guide · Visual Mark"; }
     else { renderHome(); setNav("home"); renderChapGrid(0); document.title = "Visual Mark"; }
     updateCount();
@@ -923,16 +932,17 @@ mark.hl[data-c="blue"] { background: var(--hl-blue); }
       '<div class="wrap">' +
       '<figure class="hero">' + img(c.hero.src, c.hero.w, c.hero.h, c.hero.alt || ("Opening photograph for Mark " + n), "", true) +
         '<figcaption class="band"><span class="band-title"><span class="lk">MARK</span><span class="num">' + n + "</span></span>" +
-        '<span class="meta">' + c.sections.length + " sections<br>" + c.questions.length + " reflection questions</span></figcaption></figure>" +
+        '<span class="meta">' + c.sections.length + (c.sections.length === 1 ? " section" : " sections") + "<br>" + c.questions.length + " reflection questions</span></figcaption></figure>" +
       '<div class="chapter-grid">' +
         '<aside class="guide" aria-label="In this chapter">' +
           "<h2>In Mark " + n + "</h2><ol id=\"guide-list\">" + secList + "</ol>" +
           '<p class="tally" id="tally">' + a + " of " + c.questions.length + " questions answered</p>" +
           (store ? "" : '<p class="tally">This browser is not saving responses. Copy them from My responses before you leave.</p>') +
           "<h2>Highlights</h2><div class=\"hl-tools\"></div>" +
+          studyLinks(n, false) +
         "</aside>" +
         '<article class="reader" aria-label="Mark ' + n + '">' +
-          '<details class="guide-mobile"><summary>In Mark ' + n + " · " + c.sections.length + " sections</summary><ol>" + secList + '</ol><div class="hl-tools"></div></details>' +
+          '<details class="guide-mobile"><summary>In Mark ' + n + " · " + c.sections.length + (c.sections.length === 1 ? " section" : " sections") + "</summary><ol>" + secList + '</ol><div class="hl-tools"></div>' + studyLinks(n, true) + '</details>' +
           '<aside class="prayer" aria-label="Prayer before reading Mark ' + n + '"><p class="prayer-label">A prayer before reading</p><p class="prayer-text">' + c.prayer + "</p></aside>" +
           html.join("") +
           pager +
@@ -979,6 +989,14 @@ mark.hl[data-c="blue"] { background: var(--hl-blue); }
     }
     applyHL();
     maybeHlTip();
+  }
+  // links below Highlights: Blue Letter Bible (ESV) at verse 1 of this chapter, and Going Deeper's free resources
+  function studyLinks(n, mobile) {
+    var h = mobile ? "h3" : "h2";
+    return '<div class="study-links"><' + h + '>Study further</' + h + '><ul>' +
+      '<li><a href="https://www.blueletterbible.org/esv/mar/' + n + '/1/" target="_blank" rel="noopener">Mark ' + n + ':1 in the ESV<small>Blue Letter Bible ↗</small></a></li>' +
+      '<li><a href="#deeper-resources">Free resources online<small>Going Deeper</small></a></li>' +
+      "</ul></div>";
   }
   function autosize(ta) {
     ta.style.height = "auto";
@@ -1223,7 +1241,7 @@ mark.hl[data-c="blue"] { background: var(--hl-blue); }
       '<h2 class="sub">Android phone</h2>' +
       '<ol class="steps"><li>Open this page in <b>Chrome</b>.</li><li>Tap the menu (three dots) and choose <b>Install app</b> or <b>Add to Home screen</b>.</li></ol>' +
       '<h2 class="sub">Good to know</h2>' +
-      '<ul class="notes"><li>Open the app once while connected so it can store all " + CH.length + " chapters and ' + BOOK.stats.photos + " photographs. After that it works offline.</li>" +
+      '<ul class="notes"><li>Open the app once while connected so it can store all ' + CH.length + ' chapters and ' + BOOK.stats.photos + " photographs. After that it works offline.</li>" +
       "<li>Your responses and highlights are saved on the device where you make them. The installed app keeps its own, separate from Safari.</li>" +
       "<li>Removing the app from your Home Screen also deletes its saved responses and highlights. Copy or share your responses from <a href=\"#responses\">My responses</a> first.</li></ul>" +
       '<nav class="pager" aria-label="Continue"><a href="#home"><small>Back to</small><strong>Home</strong></a><a class="next" href="#mark-1"><small>Start reading</small><strong>Mark 1</strong></a></nav>' +
