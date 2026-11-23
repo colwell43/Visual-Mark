@@ -483,6 +483,16 @@ footer.site .wrap { padding-top: 24px; padding-bottom: 32px; display: flex; flex
 }
 /* ---------- app ---------- */
 .backbtn { display: none; }
+/* ---------- link back to the Visual Bible library ---------- */
+.libbtn { color: var(--muted); padding-left: 8px; padding-right: 12px; margin-left: -8px; border-radius: 6px 0 0 6px; position: relative; }
+.libbtn::after { content: ""; position: absolute; right: 0; top: 7px; bottom: 7px; border-right: 1px solid var(--line); }
+.libbtn:hover, .libbtn:focus-visible { color: var(--teal); }
+.chapmenu-panel .lib-link { margin-top: 8px; color: var(--muted); font-weight: 500; }
+.chapmenu-panel .lib-link:hover { color: var(--teal); }
+@media (max-width: 680px) { .libbtn { margin-left: -4px; padding: 6px 9px 6px 6px; } }
+@media (max-width: 360px) { .topbar-inner .navbtn { padding-left: 6px; padding-right: 6px; } .topbar-inner .libbtn { padding-right: 8px; } }
+@media (max-width: 680px) { .standalone .topbar-inner .navbtn { padding-left: 7px; padding-right: 7px; } .standalone .topbar-inner .libbtn { padding-right: 8px; } }
+@media (max-width: 360px) { .standalone .topbar-inner .navbtn { padding-left: 4px; padding-right: 4px; } .standalone .brand { letter-spacing: 0.03em; } }
 .standalone .backbtn:not([hidden]) { display: inline-flex; padding: 6px 8px; margin-left: -6px; }
 .install-card {
   display: flex; gap: 16px; align-items: flex-start; justify-content: space-between;
@@ -569,6 +579,7 @@ mark.hl[data-c="blue"] { background: var(--hl-blue); }
 <header class="topbar">
   <div class="topbar-inner">
     <button class="navbtn backbtn" type="button" id="back-btn" aria-label="Back" hidden><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M11 3.5L5.5 9l5.5 5.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <a class="navbtn libbtn" href="https://ralphennis.com/visual-bible" id="nav-library" aria-label="Visual Bible: all books" title="All Visual Bible books"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2.5h3v11H2zM6 2.5h3v11H6z" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round"/><path d="M10.2 3.6l2.7-.7 2.3 10.2-2.7.7z" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg><span class="navlabel">Visual Bible</span></a>
     <a class="brand" href="#home">Visual <span>Mark</span></a>
     <details class="chapmenu" id="chapmenu">
       <summary class="navbtn" id="chapmenu-btn" aria-label="Choose a chapter">
@@ -578,7 +589,7 @@ mark.hl[data-c="blue"] { background: var(--hl-blue); }
       <div class="chapmenu-panel">
         <p>Mark</p>
         <div class="chapgrid" id="chapgrid"></div>
-        <div class="end-links"><a class="deeper-link" href="#summary" id="nav-summary">Summary</a><a class="deeper-link" href="#deeper" id="nav-deeper">Going Deeper</a></div>
+        <div class="end-links"><a class="deeper-link" href="#summary" id="nav-summary">Summary</a><a class="deeper-link" href="#deeper" id="nav-deeper">Going Deeper</a></div><a class="deeper-link lib-link" href="https://ralphennis.com/visual-bible">← All Visual Bible books</a>
       </div>
     </details>
     <a class="navbtn" href="#discussion" id="nav-discussion"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 3.5h11v7h-6l-3 2.5v-2.5h-2z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg><span class="navlabel">Group guide</span></a>
@@ -601,6 +612,7 @@ mark.hl[data-c="blue"] { background: var(--hl-blue); }
   <div class="wrap">
     <span>Visual Mark · Photographs from <a href="https://pixabay.com">Pixabay</a> · <a href="#credits">Photo credits</a></span>
     <span>Scripture: World English Bible (WEB), public domain.</span>
+    <a href="https://ralphennis.com/visual-bible">Visual Bible Project: all books</a>
     <a href="#install">Install Visual Mark on your phone</a>
   </div>
 </footer>
